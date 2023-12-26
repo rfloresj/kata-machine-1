@@ -98,6 +98,7 @@ export default class DoublyLinkedList<T> {
         curr.prev = curr.next = undefined;
         return curr.value;
     }
+    
     get(idx: number): T | undefined {}
     removeAt(idx: number): T | undefined {}
 }
