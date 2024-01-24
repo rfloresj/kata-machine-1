@@ -10,6 +10,15 @@ export default class MinHeap {
     insert(value: number): void {}
     delete(): number {}
 
+    private heapifDown(idx: number): void {
+        const lIdx = this.leftChild(idx);
+        const rIdx = this.rightChild(idx);
+
+        if (idx >= this.length || lIdx >= this.length) {
+            return;
+        }
+    }
+
     private heapifyUp(idx: number): void {
         if (idx === 0) {
             return;
