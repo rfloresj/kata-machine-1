@@ -25,7 +25,23 @@ export default function bfs(
             }
             seen[i] = true;
             prev[i] = curr;
+            q.push(i);
         }
-        seen[curr] = true;
     } while (q.length);
+
+    if (prev[needle] === -1) {
+        return null;
+    }
+
+    // build it backwards
+    //
+    let curr = needle;
+    const out: number[] = [];
+
+    while (prev[curr] !== -1) {
+        out.push(curr);
+        curr = prev[curr];
+    }
+
+    return [source].concat(out.reverse());
 }
