@@ -12,6 +12,18 @@ function walk(
     if (seen[curr]) {
         return false;
     }
+
+    seen[curr] = true;
+
+    // recurse
+    // pre
+    path.push(curr);
+
+    // recurse
+    const list = graph[curr];
+
+    // post
+    path.pop();
 }
 
 export default function dfs(
