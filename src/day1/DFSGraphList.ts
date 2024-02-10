@@ -5,10 +5,6 @@ function walk(
     seen: boolean[],
     path: number[],
 ): boolean {
-    if (curr === needle) {
-        return true;
-    }
-
     if (seen[curr]) {
         return false;
     }
@@ -17,13 +13,25 @@ function walk(
 
     // recurse
     // pre
+
     path.push(curr);
+    if (curr === needle) {
+        return true;
+    }
 
     // recurse
     const list = graph[curr];
+    for (let i = 0; i < list.length; i++) {
+        const edge = list[i];
+        if (walk(graph, edge.to, needle, seen, path)) {
+            return true;
+        }
+    }
 
     // post
     path.pop();
+
+    return false;
 }
 
 export default function dfs(
