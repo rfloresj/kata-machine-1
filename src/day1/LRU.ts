@@ -24,6 +24,16 @@ export default class LRU<K, V> {
     }
 
     update(key: K, value: V): void {
+        let node = this.lookup.get(key);
+        if (!node) {
+            node = createNode(value);
+            this.length++;
+            this.prepend(node);
+            this.trimCache();
+        } else {
+            this.detach(node);
+            this.prepend(node);
+        }
         // does it exist?
         //
         // if it doesn't we need to insert
@@ -48,4 +58,6 @@ export default class LRU<K, V> {
     private detach(node: Node<V>) {}
 
     private prepend(node: Node<V>) {}
+
+    private trimCache(): void {}
 }
