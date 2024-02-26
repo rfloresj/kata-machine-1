@@ -55,7 +55,25 @@ export default class LRU<K, V> {
         // return out the value found or undefinde if not exist
         return node.value;
     }
-    private detach(node: Node<V>) {}
+    private detach(node: Node<V>) {
+        if (node.prev) {
+            node.prev.next = node.next;
+        }
+
+        if (node.prev) {
+            node.prev.next = node.prev;
+        }
+
+        if (this.head === node) {
+            this.head = this.head.next;
+        }
+        if (this.tail === node) {
+            this.tail = this.tail.prev;
+        }
+
+        node.next = undefined;
+        node.prev = undefined;
+    }
 
     private prepend(node: Node<V>) {}
 
