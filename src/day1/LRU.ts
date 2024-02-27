@@ -75,7 +75,17 @@ export default class LRU<K, V> {
         node.prev = undefined;
     }
 
-    private prepend(node: Node<V>) {}
+    private prepend(node: Node<V>) {
+        if (!this.head) {
+            this.head = this.tail = node;
+            return;
+        }
+
+        node.next = this.head;
+        this.head.prev = node;
+
+        this.head = node;
+    }
 
     private trimCache(): void {}
 }
