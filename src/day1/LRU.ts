@@ -30,9 +30,13 @@ export default class LRU<K, V> {
             this.length++;
             this.prepend(node);
             this.trimCache();
+
+            this.lookup.set(key, node);
+            this.reverselookup.set(node, key);
         } else {
             this.detach(node);
             this.prepend(node);
+            node.value = value;
         }
         // does it exist?
         //
@@ -87,5 +91,17 @@ export default class LRU<K, V> {
         this.head = node;
     }
 
-    private trimCache(): void {}
+    private trimCache(): void {
+        if (this.length <= this.capacity) {
+            return;
+        }
+
+        const tail = this.tail as Node<V>;
+        this.detach(this.tail as Node<V>);
+
+        const key = this.reverselookup.get(tail) as K;
+        this.lookup.delete(key);
+        this.reverselookup.delete(tail);
+        this.length--;
+    }
 }
